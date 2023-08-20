@@ -3,9 +3,17 @@ kind: Ingress
 metadata:
   name: todo-ingress-host-based
   namespace: todo
+  annotations:
+    cert-manager.io/issuer: ssl-issuer-techbike # name of issuer
 spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - todo-ui.techbike.vn
+        - todo-api.techbike.vn
+      secretName: ssuer-secret-key-todo # privateKeySecretRef name trong file issuer.yaml
   rules:
-    - host: todo-ui.com
+    - host: todo-ui.techbike.vn
       http:
         paths:
           - path: /
@@ -15,7 +23,7 @@ spec:
                 name: todo-ui-service
                 port:
                   number: 3001
-    - host: todo-api.com
+    - host: todo-api.techbike.vn
       http:
         paths:
           - path: /

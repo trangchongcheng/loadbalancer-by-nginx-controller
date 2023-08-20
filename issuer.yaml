@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: ssl-issuer-techbike
+  namespace: todo
+status:
+  acme:
+    lastRegisteredEmail: cheng.cit@gmail.com
+    uri: https://acme-v02.api.letsencrypt.org/acme/acct/1031377677
+spec:
+  acme:
+    email: cheng.cit@gmail.com
+    preferredChain: ''
+    privateKeySecretRef:
+      name: issuer-secret-key-todo # sẽ tự tạo 1 scret để chứa key, cer
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
